@@ -1,0 +1,23 @@
+html, body {
+    display: flex;
+    flex-direction: row;
+    background: #222;
+    color: #EEE;
+}
+
+.panel {
+    height: 100vh;
+}
+
+#left-panel {
+    width: 35vw; 
+}
+
+#center-panel {
+    text-align: center;
+    width: 20vw;
+}
+
+#right-panel {
+    width: 45vw;
+}
