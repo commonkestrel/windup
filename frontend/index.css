@@ -3,10 +3,12 @@ html, body {
     flex-direction: row;
     background: #222;
     color: #EEE;
+    overflow: hidden;
 }
 
 .panel {
     height: 100vh;
+    margin: 0;
 }
 
 #left-panel {
@@ -20,4 +22,52 @@ html, body {
 
 #right-panel {
     width: 45vw;
+}
+
+#team-number {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem              ;
+}
+
+#battery {
+    height: 2rem;
+    width: auto;
+}
+
+.voltage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.voltage > h3 {
+    margin: 0;
+}
+
+.indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.25rem 0;
+}
+
+.indicator > p {
+    margin: 0rem 0.5rem;
+}
+
+.indicator-light {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 1rem;
+    width: 2rem;
+    border-radius: 0.25rem;
+}
+
+.indicator-off {
+    background-color: #D00;
+}
+
+.indicator-on {
+    background-color: #0E0;
 }

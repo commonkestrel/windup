@@ -56,7 +56,7 @@
       {
         "fullscreen": false,
         "height": 300,
-        "resizable": true,
+        "resizable": false,
         "title": "WindUp Driver Station",
         "width": 1200
       }

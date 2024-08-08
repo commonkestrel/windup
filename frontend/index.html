@@ -30,10 +30,31 @@
         </div>
     </div>
     <div id="center-panel" class="panel">
-        <h2 id="team-number">Team #XXXX</h2>
+        <h3 id="team-number">Team #XXXX</h3>
+        <div class="voltage">
+            <svg id="battery" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 200" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+                <rect id="battery-u-frame" width="280" height="140" rx="0" ry="0" transform="translate(10 50)" fill="none" stroke="#888" stroke-width="20"/>
+                <rect id="battery-u-left-terminal" width="60" height="30" rx="0" ry="0" transform="translate(30 0)" stroke-width="0" fill="#888"/>
+                <rect id="battery-u-right-terminal" width="60" height="30" rx="0" ry="0" transform="translate(210 0)" stroke-width="0" fill="#888"/>
+                <rect id="battery-u-power" class="power-indicator" width="260" height="0" rx="0" ry="0" transform="matrix(1 0 0-1 20 180)" fill="#04e915" stroke-width="0"/>
+            </svg>
+            <h3>__.__V</h3>
+        </div>
+        <div class="indicator">
+            <p>Robot</p>
+            <div class="indicator-light indicator-off"></div>
+        </div>
+        <div class="indicator">
+            <p>Robot Code</p>
+            <div class="indicator-light indicator-off"></div>
+        </div>
+        <div class="indicator">
+            <p>Joysticks</p>
+            <div class="indicator-light indicator-off"></div>
+        </div>
     </div>
     <div id="right-panel" class="panel">
-
+        
     </div>
 </body>
 </html>
