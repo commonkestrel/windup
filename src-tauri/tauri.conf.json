@@ -3,7 +3,8 @@
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "../frontend",
-    "distDir": "../frontend"
+    "distDir": "../frontend",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "windup",
@@ -55,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 300,
+        "height": 400,
         "resizable": false,
         "title": "WindUp Driver Station",
-        "width": 1200
+        "width": 1600
       }
     ]
   }

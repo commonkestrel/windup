@@ -12,7 +12,8 @@ html, body {
 }
 
 #left-panel {
-    width: 35vw; 
+    padding: 1vw;
+    width: 45vw; 
 }
 
 #center-panel {
@@ -21,7 +22,7 @@ html, body {
 }
 
 #right-panel {
-    width: 45vw;
+    width: 35vw;
 }
 
 #team-number {
@@ -70,4 +71,66 @@ html, body {
 
 .indicator-on {
     background-color: #0E0;
+}
+
+.modes {
+    list-style-type: none;
+    background-color: #666;
+    width: 20vw;
+    padding: 0;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: #333 solid 1px;
+}
+
+.seperator {
+    display: block;
+    width: 80%;
+    height: 2px;
+    margin: 1rem auto;
+    background-color: #555;
+}
+
+.mode-selector {
+    padding: 0.1rem 0.5rem;
+    border: #333 solid 1px;
+}
+
+.selected {
+    background-color: #444 !important;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 20vw;
+}
+
+.big-button {
+    margin: 0;
+    border-radius: 0;
+    width: 50%;
+    height: 5rem;
+    background-color: #666;
+    border: #333 solid 1px;
+    font-weight: 700;
+}
+
+.enable {
+    color: #060;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+ 
+.enable.selected {
+    color: #0C0;
+}
+
+.disable {
+    color: #800;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.disable.selected {
+    color: #C00;
 }

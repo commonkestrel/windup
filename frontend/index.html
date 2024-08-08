@@ -16,7 +16,16 @@
         </div>
         <div class="tabs">
             <div id="operation-tab" class="tab">
-
+                <ul class="modes">
+                    <li class="mode-selector selected" id="teleop">TeleOperated</li>
+                    <li class="mode-selector" id="auto">Autonomous</li>
+                    <li class="mode-selector" id="practice">Practice</li>
+                    <li class="mode-selector" id="test">Test</li>
+                </ul>
+                <div class="buttons">
+                    <button class="big-button enable">Enable</button>
+                    <button class="big-button disable selected">Disable</button>
+                </div>
             </div>
             <div id="diagnostics-tab" class="tab hidden">
 
@@ -52,9 +61,12 @@
             <p>Joysticks</p>
             <div class="indicator-light indicator-off"></div>
         </div>
+        <span class="seperator"></span>
+        <h3>No Robot Communication</h3>
     </div>
     <div id="right-panel" class="panel">
         
     </div>
+    <script type="text/javascript" src="index.js" />
 </body>
 </html>
