@@ -7,6 +7,21 @@
     <title>WindUp Driver Station</title>
 </head>
 <body>
+    <div data-tauri-drag-region id="titlebar" class="titlebar">
+        <div class="titlebar-button" id="titlebar-minimize">
+            <img
+                src="static/minimize.svg"
+                alt="minimize"
+            />
+        </div>
+        <div class="titlebar-button" id="titlebar-close">
+            <img
+                src="static/close.svg"
+                alt="close"
+            />
+        </div>
+    </div>
+
     <div id="left-panel" class="panel">
         <div class="tab-selectors">
             <div id="operation-selector" class="selector"></div>

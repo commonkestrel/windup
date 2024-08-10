@@ -14,7 +14,12 @@
     "allowlist": {
       "all": false,
       "window": {
-        "setSize": true
+        "all": false,
+        "setSize": true,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "startDragging": true
       }
     },
     "bundle": {
@@ -59,10 +64,11 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 300,
         "resizable": true,
         "title": "WindUp Driver Station",
-        "width": 800
+        "width": 1200,
+        "decorations": false
       }
     ]
   }

@@ -13,15 +13,49 @@ html, body {
     overflow: hidden;
     font-size: 20px;
     font-family: 'Jost';
+    padding-top: 1.5rem;
+}
+
+.titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5rem;
+    user-select: none;
+    background-color: #777;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+.titlebar-button {
+    height: 70%;
+    margin-right: 0.35rem;
+    cursor: pointer;
+    background-color: #777;
+    border-radius: 0.25rem;
+    padding: 0.1rem;
+    transition: background-color linear 0.5s;
+}
+
+.titlebar-button:hover {
+    background-color: #555;
+}
+
+.titlebar-button > img {
+    height: 100%;
 }
 
 .panel {
     height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
 #left-panel {
-    padding: 1vw;
+    padding: 0 1vw;
     width: 45vw; 
 }
 

@@ -6,46 +6,61 @@ const appWindow = twin.appWindow;
     const monitor = await twin.currentMonitor();
     console.log(typeof twin);
     let size = monitor.size;
-    size.height *= 0.2;
-
-    console.log(Object.getOwnPropertyNames(twin))
+    size.height *= 0.3;
+    size.height += 2*1.5*remPixels();
 
     console.log(twin.setSize);
-    await twin.setSize(size);
+    await twin.appWindow.setSize(size);
 })()
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("teleop").addEventListener("click", () => {
-        emit('modeChange', {
-            mode: 'teleop',
+    document
+        .getElementById("titlebar-minimize")
+        .addEventListener("click", () => appWindow.minimize());
+
+    document
+        .getElementById("titlebar-close")
+        .addEventListener("click", () => appWindow.close());
+
+    document
+        .getElementById("teleop")
+        .addEventListener("click", () => {
+            emit('modeChange', {
+                mode: 'teleop',
+            });
+
+            changeMode('teleop');
         });
 
-        changeMode('teleop');
-    });
+    document
+        .getElementById("auto")
+        .addEventListener("click", () => {
+            emit('modeChange', {
+                mode: 'auto',
+            });
 
-    document.getElementById("auto").addEventListener("click", () => {
-        emit('modeChange', {
-            mode: 'auto',
+            changeMode('auto');
         });
 
-        changeMode('auto');
-    });
+    document
+        .getElementById("practice")
+        .addEventListener("click", () => {
+            emit('modeChange', {
+                mode: 'practice',
+            });
 
-    document.getElementById("practice").addEventListener("click", () => {
-        emit('modeChange', {
-            mode: 'practice',
+            changeMode('practice');
         });
 
-        changeMode('practice');
-    });
+    document
+        .getElementById("test")
+        .addEventListener("click", () => {
+            emit('modeChange', {
+                mode: 'test',
+            });
 
-    document.getElementById("test").addEventListener("click", () => {
-        emit('modeChange', {
-            mode: 'test',
+            changeMode('test');
         });
-
-        changeMode('test');
-    });
 });
 
 const changeMode = (selected) => {
@@ -57,4 +72,8 @@ const changeMode = (selected) => {
             selectors[i].classList.add("selected");
         }
     }
+}
+
+const remPixels = () => {
+    return parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
