@@ -1,4 +1,18 @@
 const { emit, listen } = window.__TAURI__.event;
+const twin = window.__TAURI__.window;
+const appWindow = twin.appWindow;
+
+(async () => {
+    const monitor = await twin.currentMonitor();
+    console.log(typeof twin);
+    let size = monitor.size;
+    size.height *= 0.2;
+
+    console.log(Object.getOwnPropertyNames(twin))
+
+    console.log(twin.setSize);
+    await twin.setSize(size);
+})()
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("teleop").addEventListener("click", () => {

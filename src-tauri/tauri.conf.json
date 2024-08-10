@@ -12,7 +12,10 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "window": {
+        "setSize": true
+      }
     },
     "bundle": {
       "active": true,
@@ -56,10 +59,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 400,
-        "resizable": false,
+        "height": 600,
+        "resizable": true,
         "title": "WindUp Driver Station",
-        "width": 1600
+        "width": 800
       }
     ]
   }

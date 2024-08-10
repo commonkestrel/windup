@@ -1,9 +1,18 @@
+@font-face {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 100 900;
+    src: url(static/Jost.ttf);
+}
+
 html, body {
     display: flex;
     flex-direction: row;
     background: #222;
     color: #EEE;
     overflow: hidden;
+    font-size: 20px;
+    font-family: 'Jost';
 }
 
 .panel {
@@ -115,6 +124,7 @@ html, body {
     background-color: #666;
     border: #333 solid 1px;
     font-weight: 700;
+    font-size: 1.25rem;
 }
 
 .enable {
