@@ -4,19 +4,23 @@ const appWindow = twin.appWindow;
 
 (async () => {
     const monitor = await twin.currentMonitor();
-    console.log(typeof twin);
+
     let size = monitor.size;
+    const windowHeight = size.height;
     size.height *= 0.3;
     size.height += 2*1.5*remPixels();
 
-    console.log(twin.setSize);
     await twin.appWindow.setSize(size);
+    await twin.appWindow.setPosition(new twin.LogicalPosition(0, windowHeight - size.height));
 })()
 
 document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("titlebar-minimize")
-        .addEventListener("click", () => appWindow.minimize());
+        .addEventListener("click", () => {
+            console.log("minimize");
+            appWindow.minimize()
+        });
 
     document
         .getElementById("titlebar-close")

@@ -16,10 +16,11 @@
       "window": {
         "all": false,
         "setSize": true,
+        "setPosition": true,
         "close": true,
+        "minimize": true,
         "hide": true,
-        "show": true,
-        "startDragging": true
+        "show": true
       }
     },
     "bundle": {
@@ -65,10 +66,11 @@
       {
         "fullscreen": false,
         "height": 300,
-        "resizable": true,
-        "title": "WindUp Driver Station",
+        "resizable": false,
+        "title": "Windup Driver Station",
         "width": 1200,
-        "decorations": false
+        "decorations": false,
+        "alwaysOnTop": true
       }
     ]
   }

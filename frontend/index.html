@@ -7,7 +7,7 @@
     <title>WindUp Driver Station</title>
 </head>
 <body>
-    <div data-tauri-drag-region id="titlebar" class="titlebar">
+    <div id="titlebar" class="titlebar">
         <div class="titlebar-button" id="titlebar-minimize">
             <img
                 src="static/minimize.svg"
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div id="left-panel" class="panel">
+    <div id="l-panel" class="panel">
         <div class="tab-selectors">
             <div id="operation-selector" class="selector"></div>
             <div id="diagnostics-selector" class="selector"></div>
@@ -53,7 +53,26 @@
             </div>
         </div>
     </div>
-    <div id="center-panel" class="panel">
+    <div class="vertical-seperator"></div>
+    <div id="lm-panel" class="panel">
+        <div class="flex flex-row justify-center">
+            <p>Elapsed Time:</p>
+            <h3 id="elapsed">00:00</h3>
+        </div>
+
+        <div class="flex flex-row justify-center">
+            <p>Team Station</p>
+            <select>
+                <option value="red1">Red 1</option>
+                <option value="red2">Red 2</option>
+                <option value="red3">Red 3</option>
+                <option value="blue1">Blue 1</option>
+                <option value="blue2">Blue 2</option>
+                <option value="blue3">Blue 3</option>
+            </select>
+        </div>
+    </div>
+    <div id="rm-panel" class="panel">
         <h3 id="team-number">Team #XXXX</h3>
         <div class="voltage">
             <svg id="battery" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 200" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
@@ -76,7 +95,7 @@
             <p>Joysticks</p>
             <div class="indicator-light indicator-off"></div>
         </div>
-        <span class="seperator"></span>
+        <span class="horizontal-seperator"></span>
         <h3>No Robot Communication</h3>
     </div>
     <div id="right-panel" class="panel">
