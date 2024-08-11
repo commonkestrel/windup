@@ -1,13 +1,22 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 use tauri::async_runtime::Mutex;
 
 struct State {
     battery_manager: Option<BatteryManager>,
     sys: Mutex<System>,
+    mode: Mutex<RunMode>,
+}
+
+#[derive(Serialize, Deserialize)]
+enum RunMode {
+    Teleop,
+    Auto,
+    Practice,
+    Test,
 }
 
 struct BatteryManager {
@@ -45,10 +54,12 @@ fn main() {
     let state = State {
         battery_manager,
         sys: Mutex::new(sys),
+        mode: Mutex::new(RunMode::Teleop),
     };
 
     tauri::Builder::default()
         .manage(state)
+        .invoke_handler(tauri::generate_handler![get_sysinfo, set_mode])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -72,4 +83,12 @@ async fn get_sysinfo(state: tauri::State<'_, State>) -> Result<Sysinfo, ()> {
     let cpu = sys.global_cpu_usage();
 
     Ok(Sysinfo { battery, cpu })
+}
+
+#[tauri::command]
+async fn set_mode(state: tauri::State<'_, State>, new_mode: RunMode) -> Result<(), ()> {
+    let mut mode = state.mode.lock().await;
+    *mode = new_mode;
+
+    Ok(())
 }

@@ -22,84 +22,98 @@
         </div>
     </div>
 
-    <div id="l-panel" class="panel">
-        <div class="tab-selectors">
-            <div id="operation-selector" class="selector"></div>
-            <div id="diagnostics-selector" class="selector"></div>
-            <div id="setup-selector" class="selector"></div>
-            <div id="hid-selector" class="selector"></div>
-        </div>
-        <div class="tabs">
-            <div id="operation-tab" class="tab">
-                <ul class="modes">
-                    <li class="mode-selector selected" id="teleop">TeleOperated</li>
-                    <li class="mode-selector" id="auto">Autonomous</li>
-                    <li class="mode-selector" id="practice">Practice</li>
-                    <li class="mode-selector" id="test">Test</li>
-                </ul>
-                <div class="buttons">
-                    <button class="big-button enable">Enable</button>
-                    <button class="big-button disable selected">Disable</button>
+    <div class="content">
+        <div id="l-panel" class="panel">
+            <div class="tab-selectors">
+                <div id="operation-selector" class="selector"></div>
+                <div id="diagnostics-selector" class="selector"></div>
+                <div id="setup-selector" class="selector"></div>
+                <div id="hid-selector" class="selector"></div>
+            </div>
+            <div class="tabs">
+                <div id="operation-tab" class="tab">
+                    <ul class="modes">
+                        <li class="mode-selector selected" id="teleop">TeleOperated</li>
+                        <li class="mode-selector" id="auto">Autonomous</li>
+                        <li class="mode-selector" id="practice">Practice</li>
+                        <li class="mode-selector" id="test">Test</li>
+                    </ul>
+                    <div class="buttons">
+                        <button class="big-button enable">Enable</button>
+                        <button class="big-button disable selected">Disable</button>
+                    </div>
+                </div>
+                <div id="diagnostics-tab" class="tab hidden">
+
+                </div>
+                <div id="setup-tab" class="tab hidden">
+
+                </div>
+                <div id="hid-tab">
+
                 </div>
             </div>
-            <div id="diagnostics-tab" class="tab hidden">
-
+            <div class="vertical-seperator"></div>
+            <div>
+                <div class="flex flex-row justify-center">
+                    <p>Elapsed Time:</p>
+                    <h3 id="elapsed">00:00</h3>
+                </div>
+                <div class="flex flex-row justify-center">
+                    <p>PC Battery</p>
+                    <div class="indicator-bar">
+                        <div id="pc-battery" class="indicator-bar-fill"></div>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-center">
+                    <p>PC CPU %</p>
+                    <div class="indicator-bar">
+                        <div id="pc-cpu" class="indicator-bar-fill"></div>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-center">
+                    <p>Team Station</p>
+                    <select>
+                        <option value="red1">Red 1</option>
+                        <option value="red2">Red 2</option>
+                        <option value="red3">Red 3</option>
+                        <option value="blue1">Blue 1</option>
+                        <option value="blue2">Blue 2</option>
+                        <option value="blue3">Blue 3</option>
+                    </select>
+                </div>
             </div>
-            <div id="setup-tab" class="tab hidden">
-
+        </div>
+        <div class="vertical-seperator"></div>
+        <div id="rm-panel" class="panel">
+            <h3 id="team-number">Team #XXXX</h3>
+            <div class="voltage">
+                <svg id="battery" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 200" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+                    <rect id="battery-u-frame" width="280" height="140" rx="0" ry="0" transform="translate(10 50)" fill="none" stroke="#888" stroke-width="20"/>
+                    <rect id="battery-u-left-terminal" width="60" height="30" rx="0" ry="0" transform="translate(30 0)" stroke-width="0" fill="#888"/>
+                    <rect id="battery-u-right-terminal" width="60" height="30" rx="0" ry="0" transform="translate(210 0)" stroke-width="0" fill="#888"/>
+                    <rect id="battery-u-power" class="power-indicator" width="260" height="0" rx="0" ry="0" transform="matrix(1 0 0-1 20 180)" fill="#04e915" stroke-width="0"/>
+                </svg>
+                <h3>__.__V</h3>
             </div>
-            <div id="hid-tab">
-
+            <div class="indicator">
+                <p>Robot</p>
+                <div class="indicator-light indicator-off"></div>
             </div>
+            <div class="indicator">
+                <p>Robot Code</p>
+                <div class="indicator-light indicator-off"></div>
+            </div>
+            <div class="indicator">
+                <p>Joysticks</p>
+                <div class="indicator-light indicator-off"></div>
+            </div>
+            <span class="horizontal-seperator"></span>
+            <h3>No Robot Communication</h3>
         </div>
-    </div>
-    <div class="vertical-seperator"></div>
-    <div id="lm-panel" class="panel">
-        <div class="flex flex-row justify-center">
-            <p>Elapsed Time:</p>
-            <h3 id="elapsed">00:00</h3>
+        <div id="right-panel" class="panel">
+            
         </div>
-
-        <div class="flex flex-row justify-center">
-            <p>Team Station</p>
-            <select>
-                <option value="red1">Red 1</option>
-                <option value="red2">Red 2</option>
-                <option value="red3">Red 3</option>
-                <option value="blue1">Blue 1</option>
-                <option value="blue2">Blue 2</option>
-                <option value="blue3">Blue 3</option>
-            </select>
-        </div>
-    </div>
-    <div id="rm-panel" class="panel">
-        <h3 id="team-number">Team #XXXX</h3>
-        <div class="voltage">
-            <svg id="battery" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 200" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-                <rect id="battery-u-frame" width="280" height="140" rx="0" ry="0" transform="translate(10 50)" fill="none" stroke="#888" stroke-width="20"/>
-                <rect id="battery-u-left-terminal" width="60" height="30" rx="0" ry="0" transform="translate(30 0)" stroke-width="0" fill="#888"/>
-                <rect id="battery-u-right-terminal" width="60" height="30" rx="0" ry="0" transform="translate(210 0)" stroke-width="0" fill="#888"/>
-                <rect id="battery-u-power" class="power-indicator" width="260" height="0" rx="0" ry="0" transform="matrix(1 0 0-1 20 180)" fill="#04e915" stroke-width="0"/>
-            </svg>
-            <h3>__.__V</h3>
-        </div>
-        <div class="indicator">
-            <p>Robot</p>
-            <div class="indicator-light indicator-off"></div>
-        </div>
-        <div class="indicator">
-            <p>Robot Code</p>
-            <div class="indicator-light indicator-off"></div>
-        </div>
-        <div class="indicator">
-            <p>Joysticks</p>
-            <div class="indicator-light indicator-off"></div>
-        </div>
-        <span class="horizontal-seperator"></span>
-        <h3>No Robot Communication</h3>
-    </div>
-    <div id="right-panel" class="panel">
-        
     </div>
     <script type="text/javascript" src="index.js" />
 </body>

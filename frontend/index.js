@@ -1,6 +1,7 @@
 const { emit, listen } = window.__TAURI__.event;
 const twin = window.__TAURI__.window;
 const appWindow = twin.appWindow;
+const invoke = window.__TAURI__.invoke;
 
 (async () => {
     const monitor = await twin.currentMonitor();
@@ -65,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             changeMode('test');
         });
+
+    updateSysinfo();
+    setInterval(() => updateSysinfo(), 1000);
 });
 
 const changeMode = (selected) => {
@@ -80,4 +84,37 @@ const changeMode = (selected) => {
 
 const remPixels = () => {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+const updateSysinfo = () => {
+    invoke('get_sysinfo').then((sysinfo) => {
+        updateBattery(sysinfo.battery);
+        updateCPU(sysinfo.cpu);
+    });
+}
+
+const updateBattery = (battery) => {
+    const indicator = document.getElementById("pc-battery");
+    indicator.style.width = battery.toString() + "%";
+
+    if (battery < 10.0) {
+        indicator.style.backgroundColor = "var(--indicator-red)";
+    } else if (battery < 25.0) {
+        indicator.style.backgroundColor = "var(--indicator-yellow)";
+    } else {
+        indicator.style.backgroundColor = "var(--indicator-green)";
+    }
+}
+
+const updateCPU = (cpu) => {
+    const indicator = document.getElementById("pc-cpu");
+    indicator.style.width = cpu.toString() + "%";
+
+    if (cpu < 75.0) {
+        indicator.style.backgroundColor = "var(--indicator-green)";
+    } else if (cpu < 90.0) {
+        indicator.style.backgroundColor = "var(--indicator-yellow)";
+    } else {
+        indicator.style.backgroundColor = "var(--indicator-red)";
+    }
 }
