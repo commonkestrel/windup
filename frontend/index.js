@@ -16,6 +16,8 @@ const invoke = window.__TAURI__.invoke;
 })()
 
 document.addEventListener("DOMContentLoaded", () => {
+    // ------- TITLEBAR ------- //
+
     document
         .getElementById("titlebar-minimize")
         .addEventListener("click", () => {
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("titlebar-close")
         .addEventListener("click", () => appWindow.close());
+
+    // ------- MODES ------- //
 
     document
         .getElementById("teleop")
@@ -67,6 +71,26 @@ document.addEventListener("DOMContentLoaded", () => {
             changeMode('test');
         });
 
+    // ------- TABS ------- //
+
+    document
+        .getElementById("operation-selector")
+        .addEventListener("click", () => changeTab('operation'));
+
+    document
+        .getElementById("diagnostics-selector")
+        .addEventListener("click", () => changeTab('diagnostics'));
+
+    document
+        .getElementById("setup-selector")
+        .addEventListener("click", () => changeTab('setup'));
+
+    document
+        .getElementById("hid-selector")
+        .addEventListener("click", () => changeTab('hid'));
+
+    // ------- ENABLE ------- //
+
     document
         .getElementById('enable')
         .addEventListener('click', () => enable());
@@ -75,10 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .getElementById('disable')
         .addEventListener('click', () => disable());
 
+    // ------- STATION ------- //
+
     const station = document.getElementById('station');
     station.addEventListener('change', () => {
         invoke('set_station', { station: station.value })
-    })
+    });
+
+    // ------- SYSINFO ------- //
 
     displaySysinfo();
     setInterval(() => displaySysinfo(), 1000);
@@ -146,5 +174,20 @@ const displayCPU = (cpu) => {
         indicator.style.backgroundColor = "var(--indicator-yellow)";
     } else {
         indicator.style.backgroundColor = "var(--indicator-red)";
+    }
+}
+
+const changeTab = (tab) => {
+    let selectors = document.getElementsByClassName('selector')
+    let tabs = document.getElementsByClassName('tab');
+
+    for (let i = 0; i < 4; i++) {
+        if (selectors[i].id.includes(tab)) {
+            selectors[i].classList.add('selected');
+            tabs[i].classList.remove('hidden');
+        } else {
+            selectors[i].classList.remove('selected');
+            tabs[i].classList.add('hidden');
+        }
     }
 }

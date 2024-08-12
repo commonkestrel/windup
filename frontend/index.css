@@ -14,7 +14,7 @@ html, body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .content {
@@ -67,7 +67,7 @@ html, body {
 #l-panel {
     display: flex;
     width:45vw; 
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
 }
 
@@ -78,6 +78,16 @@ html, body {
 
 #r-panel {
     width: 35vw;
+    height: calc((100vh - 1.5rem) * 0.8);
+    align-items: start;
+}
+
+#r-panel > p {
+    margin: 0 1rem;
+}
+
+.tab {
+    width: calc(45vw - 2rem);
 }
 
 #team-number {
@@ -214,8 +224,23 @@ html, body {
     flex-direction: row;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .justify-center {
     justify-content: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+.space-evenly {
+    justify-content: space-evenly;
 }
 
 #elapsed {
@@ -273,4 +298,13 @@ select {
 .selector > img {
     height: 70%;
     width: 70%;
+}
+
+.console {
+    width: calc(100% - 5rem);
+    height: 100%;
+    background-color: #444;
+    border-radius: 1rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }

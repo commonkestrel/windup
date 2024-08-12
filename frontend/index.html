@@ -51,16 +51,48 @@
                 </div>
             </div>
             <div class="tabs">
-                <div id="operation-tab" class="tab">
-                    <ul class="modes">
-                        <li class="mode-selector selected" id="teleop">TeleOperated</li>
-                        <li class="mode-selector" id="auto">Autonomous</li>
-                        <li class="mode-selector" id="practice">Practice</li>
-                        <li class="mode-selector" id="test">Test</li>
-                    </ul>
-                    <div class="buttons">
-                        <button id="enable" class="big-button enable">Enable</button>
-                        <button id="disable" class="big-button disable selected">Disable</button>
+                <div id="operation-tab" class="tab flex flex-row space-evenly">
+                    <div class="flex flex-column">
+                        <ul class="modes">
+                            <li class="mode-selector selected" id="teleop">TeleOperated</li>
+                            <li class="mode-selector" id="auto">Autonomous</li>
+                            <li class="mode-selector" id="practice">Practice</li>
+                            <li class="mode-selector" id="test">Test</li>
+                        </ul>
+                        <div class="buttons">
+                            <button id="enable" class="big-button enable">Enable</button>
+                            <button id="disable" class="big-button disable selected">Disable</button>
+                        </div>
+                    </div>
+                    <div class="vertical-seperator"></div>
+                    <div>
+                        <div class="flex flex-row justify-center">
+                            <p>Elapsed Time:</p>
+                            <h3 id="elapsed">00:00</h3>
+                        </div>
+                        <div class="flex flex-row justify-center">
+                            <p>PC Battery</p>
+                            <div class="indicator-bar">
+                                <div id="pc-battery" class="indicator-bar-fill"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-center">
+                            <p>PC CPU %</p>
+                            <div class="indicator-bar">
+                                <div id="pc-cpu" class="indicator-bar-fill"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-center">
+                            <p>Team Station</p>
+                            <select id="station">
+                                <option value="red1">Red 1</option>
+                                <option value="red2">Red 2</option>
+                                <option value="red3">Red 3</option>
+                                <option value="blue1">Blue 1</option>
+                                <option value="blue2">Blue 2</option>
+                                <option value="blue3">Blue 3</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div id="diagnostics-tab" class="tab hidden">
@@ -69,38 +101,8 @@
                 <div id="setup-tab" class="tab hidden">
 
                 </div>
-                <div id="hid-tab">
+                <div id="hid-tab" class="tab hidden">
 
-                </div>
-            </div>
-            <div class="vertical-seperator"></div>
-            <div>
-                <div class="flex flex-row justify-center">
-                    <p>Elapsed Time:</p>
-                    <h3 id="elapsed">00:00</h3>
-                </div>
-                <div class="flex flex-row justify-center">
-                    <p>PC Battery</p>
-                    <div class="indicator-bar">
-                        <div id="pc-battery" class="indicator-bar-fill"></div>
-                    </div>
-                </div>
-                <div class="flex flex-row justify-center">
-                    <p>PC CPU %</p>
-                    <div class="indicator-bar">
-                        <div id="pc-cpu" class="indicator-bar-fill"></div>
-                    </div>
-                </div>
-                <div class="flex flex-row justify-center">
-                    <p>Team Station</p>
-                    <select id="station">
-                        <option value="red1">Red 1</option>
-                        <option value="red2">Red 2</option>
-                        <option value="red3">Red 3</option>
-                        <option value="blue1">Blue 1</option>
-                        <option value="blue2">Blue 2</option>
-                        <option value="blue3">Blue 3</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -131,8 +133,12 @@
             <span class="horizontal-seperator"></span>
             <h3>No Robot Communication</h3>
         </div>
-        <div id="right-panel" class="panel">
-            
+        <div class="vertical-seperator"></div>
+        <div id="r-panel" class="panel flex flex-column justify-center">
+            <p>Console</p>
+            <div class="console">
+                <p id="console"></p>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="index.js" />

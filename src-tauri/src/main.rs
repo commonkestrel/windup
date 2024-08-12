@@ -3,7 +3,7 @@
 
 mod robot;
 
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{atomic::{AtomicUsize, Ordering}, Arc};
 
 use robot::{RobotState, RunMode, Station};
 use serde::Serialize;
@@ -13,7 +13,8 @@ use tauri::async_runtime::Mutex;
 struct State {
     battery_manager: Option<BatteryManager>,
     sys: Mutex<System>,
-    robot: Option<Mutex<RobotState>>,
+    team_number: Arc<AtomicUsize>,
+    robot: Option<Arc<Mutex<RobotState>>>,
 }
 
 struct BatteryManager {
@@ -51,6 +52,7 @@ fn main() {
     let state = State {
         battery_manager,
         sys: Mutex::new(sys),
+        team_number: Arc::new(AtomicUsize::new(0)),
         robot: None,
     };
 
@@ -116,4 +118,15 @@ async fn disable(state: tauri::State<'_, State>) -> Result<(), robot::Error> {
         Some(ref robot) => robot.lock().await.disable(),
         None => Err(robot::Error::RobotDisconnected),
     }
+}
+
+#[tauri::command]
+async fn set_team_number(state: tauri::State<'_, State>, team: usize) -> Result<(), robot::Error> {
+    if team > 9999 || team == 0 {
+        return Err(robot::Error::InvalidTeamNumber);
+    }
+
+    state.team_number.store(team, Ordering::SeqCst);
+
+    Ok(())
 }
