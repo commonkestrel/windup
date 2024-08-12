@@ -160,8 +160,8 @@ html, body {
     border: #333 solid 1px;
 }
 
-.selected {
-    background-color: #444 !important;
+.mode-selector.selected {
+    background-color: #444;
 }
 
 .buttons {
@@ -181,6 +181,10 @@ html, body {
     border: #333 solid 1px;
     font-weight: 700;
     font-size: 1.25rem;
+}
+
+.big-button.selected {
+    background-color: #444;
 }
 
 .enable {
@@ -242,17 +246,28 @@ select {
 
 .indicator-bar-fill {
     height: 100%;
-    transition: background-color 2s, width 2s;
+    transition: background-color 1s, width 1s;
+}
+
+.tab-selectors {
+    border: #333 solid 1px;
+    border-radius: 0 0.5rem 0.5rem 0;
+    overflow: hidden;
 }
 
 .selector {
     height: calc((100vh - 1.5rem) / 8);
     width: 2rem;
-    border: #111 solid 2px;
+    background-color: #666;
+    border: #333 solid 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.selector.selected {
+    background-color: #444;
 }
 
 .selector > img {

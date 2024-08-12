@@ -25,7 +25,7 @@
     <div class="content">
         <div id="l-panel" class="panel">
             <div class="tab-selectors">
-                <div id="operation-selector" class="selector">
+                <div id="operation-selector" class="selector selected">
                     <img
                         src="static/steeringwheel.svg"
                         alt="Operations"
@@ -59,8 +59,8 @@
                         <li class="mode-selector" id="test">Test</li>
                     </ul>
                     <div class="buttons">
-                        <button class="big-button enable">Enable</button>
-                        <button class="big-button disable selected">Disable</button>
+                        <button id="enable" class="big-button enable">Enable</button>
+                        <button id="disable" class="big-button disable selected">Disable</button>
                     </div>
                 </div>
                 <div id="diagnostics-tab" class="tab hidden">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="flex flex-row justify-center">
                     <p>Team Station</p>
-                    <select>
+                    <select id="station">
                         <option value="red1">Red 1</option>
                         <option value="red2">Red 2</option>
                         <option value="red3">Red 3</option>

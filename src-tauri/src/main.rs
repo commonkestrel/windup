@@ -1,22 +1,19 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use serde::{Deserialize, Serialize};
+mod robot;
+
+use std::sync::atomic::{AtomicBool, Ordering};
+
+use robot::{RobotState, RunMode, Station};
+use serde::Serialize;
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 use tauri::async_runtime::Mutex;
 
 struct State {
     battery_manager: Option<BatteryManager>,
     sys: Mutex<System>,
-    mode: Mutex<RunMode>,
-}
-
-#[derive(Serialize, Deserialize)]
-enum RunMode {
-    Teleop,
-    Auto,
-    Practice,
-    Test,
+    robot: Option<Mutex<RobotState>>,
 }
 
 struct BatteryManager {
@@ -54,12 +51,12 @@ fn main() {
     let state = State {
         battery_manager,
         sys: Mutex::new(sys),
-        mode: Mutex::new(RunMode::Teleop),
+        robot: None,
     };
 
     tauri::Builder::default()
         .manage(state)
-        .invoke_handler(tauri::generate_handler![get_sysinfo, set_mode])
+        .invoke_handler(tauri::generate_handler![get_sysinfo, set_mode, set_station, disable, enable])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -86,9 +83,37 @@ async fn get_sysinfo(state: tauri::State<'_, State>) -> Result<Sysinfo, ()> {
 }
 
 #[tauri::command]
-async fn set_mode(state: tauri::State<'_, State>, new_mode: RunMode) -> Result<(), ()> {
-    let mut mode = state.mode.lock().await;
-    *mode = new_mode;
+async fn set_mode(state: tauri::State<'_, State>, mode: RunMode) -> Result<(), robot::Error> {
+    println!("setting mode to {mode:?}");
 
-    Ok(())
+    match state.robot {
+        Some(ref robot) => robot.lock().await.set_mode(mode),
+        None => Err(robot::Error::RobotDisconnected),
+    }
+}
+
+#[tauri::command]
+async fn set_station(state: tauri::State<'_, State>, station: Station) -> Result<(), robot::Error> {
+    println!("setting mode to {station:?}");
+
+    match state.robot {
+        Some(ref robot) => robot.lock().await.set_station(station),
+        None => Err(robot::Error::RobotDisconnected),
+    }
+}
+
+#[tauri::command]
+async fn enable(state: tauri::State<'_, State>) -> Result<(), robot::Error> {
+    match state.robot {
+        Some(ref robot) => robot.lock().await.enable(),
+        None => Err(robot::Error::RobotDisconnected),
+    }
+}
+
+#[tauri::command]
+async fn disable(state: tauri::State<'_, State>) -> Result<(), robot::Error> {
+    match state.robot {
+        Some(ref robot) => robot.lock().await.disable(),
+        None => Err(robot::Error::RobotDisconnected),
+    }
 }

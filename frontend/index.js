@@ -62,16 +62,46 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("click", () => {
             emit('modeChange', {
                 mode: 'test',
-            });
+            }); 
 
             changeMode('test');
         });
 
-    updateSysinfo();
-    setInterval(() => updateSysinfo(), 1000);
+    document
+        .getElementById('enable')
+        .addEventListener('click', () => enable());
+
+    document
+        .getElementById('disable')
+        .addEventListener('click', () => disable());
+
+    const station = document.getElementById('station');
+    station.addEventListener('change', () => {
+        invoke('set_station', { station: station.value })
+    })
+
+    displaySysinfo();
+    setInterval(() => displaySysinfo(), 1000);
 });
 
+const enable = () => {
+    invoke('disable');
+
+    document.getElementById('disable').classList.remove('selected');
+    document.getElementById('enable').classList.add('selected');
+}
+
+const disable = () => {
+    invoke('disable');
+
+    document.getElementById('enable').classList.remove('selected');
+    document.getElementById('disable').classList.add('selected');
+}
+
 const changeMode = (selected) => {
+    disable();
+    invoke('set_mode', { mode: selected });
+
     let selectors = document.getElementsByClassName("mode-selector");
     for (let i = 0; i < selectors.length; i++) {
         if (!selectors[i].id.includes(selected)) {
@@ -86,14 +116,14 @@ const remPixels = () => {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-const updateSysinfo = () => {
+const displaySysinfo = () => {
     invoke('get_sysinfo').then((sysinfo) => {
-        updateBattery(sysinfo.battery);
-        updateCPU(sysinfo.cpu);
+        displayBattery(sysinfo.battery);
+        displayCPU(sysinfo.cpu);
     });
 }
 
-const updateBattery = (battery) => {
+const displayBattery = (battery) => {
     const indicator = document.getElementById("pc-battery");
     indicator.style.width = battery.toString() + "%";
 
@@ -106,7 +136,7 @@ const updateBattery = (battery) => {
     }
 }
 
-const updateCPU = (cpu) => {
+const displayCPU = (cpu) => {
     const indicator = document.getElementById("pc-cpu");
     indicator.style.width = cpu.toString() + "%";
 
