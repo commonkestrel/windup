@@ -32,23 +32,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // ------- MODES ------- //
 
     document
-        .getElementById("teleop")
+        .getElementById("teleoperated")
         .addEventListener("click", () => {
             emit('modeChange', {
                 mode: 'teleop',
             });
 
-            changeMode('teleop');
+            disable();
+            changeMode('teleoperated');
         });
 
     document
-        .getElementById("auto")
+        .getElementById("autonomous")
         .addEventListener("click", () => {
             emit('modeChange', {
                 mode: 'auto',
             });
 
-            changeMode('auto');
+            disable();
+            changeMode('autonomous');
         });
 
     document
@@ -58,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mode: 'practice',
             });
 
+            disable()
             changeMode('practice');
         });
 
@@ -68,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mode: 'test',
             }); 
 
+            disable();
             changeMode('test');
         });
 
@@ -110,10 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displaySysinfo();
     setInterval(() => displaySysinfo(), 1000);
+
+    setInterval(() => displayState(), 20);
 });
 
 const enable = () => {
-    invoke('disable');
+    invoke('enable');
 
     document.getElementById('disable').classList.remove('selected');
     document.getElementById('enable').classList.add('selected');
@@ -128,7 +134,7 @@ const disable = () => {
 
 const changeMode = (selected) => {
     disable();
-    invoke('set_mode', { mode: selected });
+    invoke('set_mode', { mode: selected == 'practice' ? 'autonomous' : selected });
 
     let selectors = document.getElementsByClassName("mode-selector");
     for (let i = 0; i < selectors.length; i++) {
@@ -190,4 +196,10 @@ const changeTab = (tab) => {
             tabs[i].classList.add('hidden');
         }
     }
+}
+
+const displayState = (state) => {
+    invoke('get_state').then((state) => {
+        document.getElementById('rio-battery').innerText = state.battery.toFixed(2) + "V";
+    })
 }

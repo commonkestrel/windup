@@ -1,11 +1,9 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod robot;
+use std::sync::{atomic::{AtomicU16, Ordering}, Arc};
 
-use std::sync::{atomic::{AtomicUsize, Ordering}, Arc};
-
-use robot::{RobotState, RunMode, Station};
+use driverstation::{Alliance, Mode, Robot};
 use serde::Serialize;
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 use tauri::async_runtime::Mutex;
@@ -13,8 +11,8 @@ use tauri::async_runtime::Mutex;
 struct State {
     battery_manager: Option<BatteryManager>,
     sys: Mutex<System>,
-    team_number: Arc<AtomicUsize>,
-    robot: Option<Arc<Mutex<RobotState>>>,
+    team_number: Arc<AtomicU16>,
+    robot: Robot,
 }
 
 struct BatteryManager {
@@ -52,13 +50,13 @@ fn main() {
     let state = State {
         battery_manager,
         sys: Mutex::new(sys),
-        team_number: Arc::new(AtomicUsize::new(0)),
-        robot: None,
+        team_number: Arc::new(AtomicU16::new(0)),
+        robot: Robot::new(0),
     };
 
     tauri::Builder::default()
         .manage(state)
-        .invoke_handler(tauri::generate_handler![get_sysinfo, set_mode, set_station, disable, enable])
+        .invoke_handler(tauri::generate_handler![get_sysinfo, set_mode, set_station, disable, enable, set_team_number, get_state])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -85,48 +83,43 @@ async fn get_sysinfo(state: tauri::State<'_, State>) -> Result<Sysinfo, ()> {
 }
 
 #[tauri::command]
-async fn set_mode(state: tauri::State<'_, State>, mode: RunMode) -> Result<(), robot::Error> {
-    println!("setting mode to {mode:?}");
+async fn set_mode(state: tauri::State<'_, State>, mode: Mode) -> Result<(), ()> {
+    state.robot.set_mode(mode);
 
-    match state.robot {
-        Some(ref robot) => robot.lock().await.set_mode(mode),
-        None => Err(robot::Error::RobotDisconnected),
-    }
+    Ok(())
 }
 
 #[tauri::command]
-async fn set_station(state: tauri::State<'_, State>, station: Station) -> Result<(), robot::Error> {
-    println!("setting mode to {station:?}");
+async fn set_station(state: tauri::State<'_, State>, alliance: Alliance) -> Result<(), ()> {
+    state.robot.set_alliance(alliance);
 
-    match state.robot {
-        Some(ref robot) => robot.lock().await.set_station(station),
-        None => Err(robot::Error::RobotDisconnected),
-    }
+    Ok(())
 }
 
 #[tauri::command]
-async fn enable(state: tauri::State<'_, State>) -> Result<(), robot::Error> {
-    match state.robot {
-        Some(ref robot) => robot.lock().await.enable(),
-        None => Err(robot::Error::RobotDisconnected),
-    }
+async fn enable(state: tauri::State<'_, State>) -> Result<(), ()> {
+    state.robot.set_enabled(true);
+
+    Ok(())
 }
 
 #[tauri::command]
-async fn disable(state: tauri::State<'_, State>) -> Result<(), robot::Error> {
-    match state.robot {
-        Some(ref robot) => robot.lock().await.disable(),
-        None => Err(robot::Error::RobotDisconnected),
-    }
+async fn disable(state: tauri::State<'_, State>) -> Result<(), ()> {
+    state.robot.set_enabled(false);
+
+    Ok(())
 }
 
 #[tauri::command]
-async fn set_team_number(state: tauri::State<'_, State>, team: usize) -> Result<(), robot::Error> {
-    if team > 9999 || team == 0 {
-        return Err(robot::Error::InvalidTeamNumber);
-    }
+async fn set_team_number(state: tauri::State<'_, State>, team: u16) -> Result<(), ()> {
+    state.robot.set_team_number(team);
 
     state.team_number.store(team, Ordering::SeqCst);
 
     Ok(())
+}
+
+#[tauri::command]
+async fn get_state(state: tauri::State<'_, State>) -> Result<driverstation::State, ()> {
+    Ok(state.robot.state().await)
 }
