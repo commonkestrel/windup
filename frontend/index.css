@@ -90,7 +90,7 @@ html, body {
     width: calc(45vw - 2rem);
 }
 
-#team-number {
+#team-number-display {
     margin-top: 1rem;
     margin-bottom: 0.5rem              ;
 }
@@ -307,4 +307,12 @@ select {
     border-radius: 1rem;
     overflow-y: scroll;
     scrollbar-width: none;
+}
+
+.team-number-setter {
+    justify-content: center;
+}
+
+.team-number-setter > p, .team-number-setter > input {
+    margin: 0;
 }

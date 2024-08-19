@@ -610,7 +610,7 @@ checksum = "bd0c93bb4b0c6d9b77f4435b0ae98c24d17f1c45b2ff844c6151a07256ca923b"
 [[package]]
 name = "driverstation"
 version = "0.1.0"
-source = "git+https://github.com/commonkestrel/driverstation?rev=02bcadf#02bcadf88c28ea1f35c6c5129c468e3a73b01f62"
+source = "git+https://github.com/commonkestrel/driverstation.git?rev=a816d00#a816d0066276000cb3fa872b6d6411b604a322d9"
 dependencies = [
  "macros",
  "serde",
@@ -1509,7 +1509,7 @@ dependencies = [
 [[package]]
 name = "macros"
 version = "0.1.0"
-source = "git+https://github.com/commonkestrel/driverstation?rev=02bcadf#02bcadf88c28ea1f35c6c5129c468e3a73b01f62"
+source = "git+https://github.com/commonkestrel/driverstation.git?rev=a816d00#a816d0066276000cb3fa872b6d6411b604a322d9"
 dependencies = [
  "proc-macro2",
  "quote",

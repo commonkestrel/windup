@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("titlebar-minimize")
         .addEventListener("click", () => {
-            console.log("minimize");
             appWindow.minimize()
         });
 
@@ -103,6 +102,22 @@ document.addEventListener("DOMContentLoaded", () => {
         .getElementById('disable')
         .addEventListener('click', () => disable());
 
+    document
+        .getElementById('team-number')
+        .addEventListener('change', () => {
+            const teamNumber = document.getElementById('team-number').value;
+
+            try {
+                const team = parseInt(teamNumber);
+                invoke('set_team_number', { team: team });
+
+                const display = document.getElementById('team-number-display');
+                display.innerText = "Team #" + team.toString();
+            } catch {
+
+            }
+        })
+
     // ------- STATION ------- //
 
     const station = document.getElementById('station');
@@ -115,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displaySysinfo();
     setInterval(() => displaySysinfo(), 1000);
 
-    setInterval(() => displayState(), 20);
+    setInterval(() => displayState(), 50);
 });
 
 const enable = () => {
@@ -201,5 +216,23 @@ const changeTab = (tab) => {
 const displayState = (state) => {
     invoke('get_state').then((state) => {
         document.getElementById('rio-battery').innerText = state.battery.toFixed(2) + "V";
+        
+        const conn = document.getElementById('conn-indicator');
+        if (state.connected) {
+            conn.classList.remove("indicator-off");
+            conn.classList.add("indicator-on");
+        } else {
+            conn.classList.remove("indicator-on");
+            conn.classList.add("indicator-off");
+        }
+
+        const code = document.getElementById('code-indicator');
+        if (state.code == 'Running') {
+            code.classList.remove("indicator-off");
+            code.classList.add("indicator-on");
+        } else {
+            code.classList.remove("indicator-on");
+            code.classList.add("indicator-off");
+        }
     })
 }
